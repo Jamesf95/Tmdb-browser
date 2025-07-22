@@ -14,6 +14,15 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hello, world!")
+        }.onTapGesture {
+            Task {
+                do {
+                    let result = try await TmdbApiClient().fetchDiscoverList()
+                    print(result)
+                } catch {
+                    print(error)
+                }
+            }
         }
         .padding()
     }
