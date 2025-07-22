@@ -11,7 +11,7 @@ struct DiscoverPage: View {
     
     @State private var viewModel = DiscoverViewModel()
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
-
+    let onMovieClicked: (Movie) -> Void
     
     var body: some View {
         ZStack {
@@ -33,10 +33,11 @@ struct DiscoverPage: View {
         ScrollView {
             LazyVGrid(columns: columns) {
                 ForEach(viewModel.movies, id: \.self) { movie in
-                    MovieGridItem(movie: movie)
+                    MovieGridItem(movie: movie, onTap: onMovieClicked)
                 }
             }
         }
+        .padding()
     }
     
     var loadingView: some View {
@@ -63,5 +64,5 @@ struct DiscoverPage: View {
 }
 
 #Preview {
-    DiscoverPage()
+    DiscoverPage() { s_ in }
 }

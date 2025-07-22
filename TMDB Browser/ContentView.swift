@@ -8,9 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var selectedMovie: Movie?
+    
     var body: some View {
         NavigationStack {
-            DiscoverPage()
+            DiscoverPage() { movie in
+                selectedMovie = movie
+            }
+            .navigationDestination(item: $selectedMovie) { movie in
+                MovieDetailPage(movie: movie)
+            }
         }
     }
 }

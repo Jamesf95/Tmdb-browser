@@ -48,9 +48,7 @@ class TmdbApiClient {
  
     private func decodeJson(data: Data) throws(TmdbApiClientError) -> TmdbApiResponse {
         do {
-            let jsonResponse = String(data: data, encoding: .utf8)
-            print(jsonResponse)
-            
+            let jsonResponse = String(data: data, encoding: .utf8)            
             return try jsonDecoder.decode(PageWrapper<Movie>.self, from: data)
             
         } catch {

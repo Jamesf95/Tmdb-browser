@@ -9,25 +9,22 @@ import SwiftUI
 
 struct MovieGridItem: View {
     let movie: Movie
+    let onTap: (Movie) -> Void
     
     var body: some View {
-        VStack {
-            if let posterImageUrl {
-                AsyncImage(
-                    url: posterImageUrl,
-                    content: { image in
-                        image.resizable()
-                            .aspectRatio(2/3, contentMode: .fit)
-                    },
-                    placeholder: {
-                        ProgressView()
-                    }
-                )
-            }
-            
+        ZStack(alignment: .bottomLeading) {
+            MovieImage(path: movie.posterPath)
+        
             Text(movie.title)
+                .frame(maxWidth: .infinity)
+                .padding()
                 .font(.headline)
-                .frame(height: 50)
+                .background(.thinMaterial)
+        }
+        .cornerRadius(20)
+        
+        .onTapGesture {
+            onTap(movie)
         }
     }
     
@@ -49,5 +46,5 @@ struct MovieGridItem: View {
         posterPath: "/ombsmhYUqR4qqOLOxAyr5V8hbyv",
         title: "Test"
     )
-    MovieGridItem(movie: movie)
+    MovieGridItem(movie: movie) { _ in }
 }
