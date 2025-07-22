@@ -12,6 +12,13 @@ private let placeholderImage = URL(string: "https://placehold.co/500x750")!
 struct MovieImage: View {
     
     let path: String
+    let aspectRatio: Double
+    
+    init(path: String, aspectRatio: Double = 2/3) {
+        self.path = path
+        self.aspectRatio = aspectRatio
+    }
+    
     
     var imageUrl: URL {
         var components = URLComponents(string: "https://image.tmdb.org")
@@ -21,20 +28,37 @@ struct MovieImage: View {
         
         let path = "/t/p/w500/" + path + ".jpg"
         components?.path = path
-        return components?.url ?? placeholderImage
+        let url = components?.url ?? placeholderImage
+        print(url)
+        return url
     }
     
     var body: some View {
         AsyncImage(
             url: imageUrl,
             content: { image in
-                image.resizable()
-                    .aspectRatio(2/3, contentMode: .fit)
+                image
+                    .resizable()
+                    .aspectRatio(aspectRatio, contentMode: .fit)
             },
             placeholder: {
-                ProgressView()
+                ZStack {
+                    // Empty image to be the background so that it's the same size as the
+                    // proper image above, preventing awkward resizing behavior.
+                    Image("")
+                        .resizable()
+                        .aspectRatio(aspectRatio, contentMode: .fit)
+                        .padding()
+                        .background(.gray.opacity(0.5))
+                    
+                    Image(systemName: "square.and.arrow.up.fill")
+                }
             }
         )
     }
     
+}
+
+#Preview {
+    MovieImage(path: "/etT14XfDEqhQZdD47ywpyihXPyW.jpg", aspectRatio: 2/3)
 }

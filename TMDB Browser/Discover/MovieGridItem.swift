@@ -44,7 +44,9 @@ struct MovieGridItem: View {
     let movie = Movie(
         id: 1,
         posterPath: "/ombsmhYUqR4qqOLOxAyr5V8hbyv",
-        title: "Test"
+        title: "Test",
+        overview: "",
+        backdropPath: ""
     )
     MovieGridItem(movie: movie) { _ in }
 }

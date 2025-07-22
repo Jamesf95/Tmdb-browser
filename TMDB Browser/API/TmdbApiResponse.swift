@@ -16,4 +16,6 @@ struct Movie: Codable, Identifiable, Hashable {
     let id: Int
     let posterPath: String
     let title: String
+    let overview: String
+    let backdropPath: String
 }
