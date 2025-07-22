@@ -12,7 +12,7 @@ struct PageWrapper<T: Codable>: Codable {
     let results: [T]
 }
 
-struct Movie: Codable {
+struct Movie: Codable, Identifiable, Hashable {
     let id: Int
     let posterPath: String
     let title: String
