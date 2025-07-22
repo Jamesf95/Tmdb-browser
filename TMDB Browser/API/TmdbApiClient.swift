@@ -15,6 +15,8 @@ enum TmdbApiClientError: Error {
 
 class TmdbApiClient {
         
+    private static let baseUrl = "https://api.themoviedb.org"
+    
     private lazy var jsonDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -22,7 +24,7 @@ class TmdbApiClient {
     }()
     
     func fetchDiscoverList() async throws(TmdbApiClientError) -> TmdbApiResponse {
-        guard let url = buildUrl(path: "/3/discover/movie") else {
+        guard let url = Self.buildUrl(path: "/discover/movie") else {
             throw .invalidUrl
         }
         
@@ -57,11 +59,11 @@ class TmdbApiClient {
         }
     }
     
-    private func buildUrl(path: String) -> URL? {
-        guard var components = URLComponents(string: "https://api.themoviedb.org") else {
+    static func buildUrl(path: String) -> URL? {
+        guard var components = URLComponents(string: Self.baseUrl) else {
             return nil
         }
-        components.path = path
+        components.path = "/3" + path
         components.queryItems = [
             // api_key needed for every request.
             URLQueryItem(name: "api_key", value: apiKey)
