@@ -1,5 +1,7 @@
 # TMDB Browser
 
+This is a small SwiftUI app that communicates with the TMDB API and displays a list of movies. 
+
 ## API Key
 
 This project requires an API key. One can be created on [the TMDB website](https://developer.themoviedb.org/docs/getting-started). 
