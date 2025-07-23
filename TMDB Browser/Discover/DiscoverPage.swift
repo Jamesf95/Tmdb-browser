@@ -11,6 +11,7 @@ struct DiscoverPage: View {
     
     @State private var viewModel = DiscoverViewModel()
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    
     let onMovieClicked: (Movie) -> Void
     
     var body: some View {

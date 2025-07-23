@@ -22,7 +22,6 @@ struct MovieGridItem: View {
                 .background(.thinMaterial)
         }
         .cornerRadius(20)
-        
         .onTapGesture {
             onTap(movie)
         }

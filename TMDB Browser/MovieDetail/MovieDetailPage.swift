@@ -55,6 +55,7 @@ struct MovieDetailPage: View {
                 
             }
         }
+        .ignoresSafeArea(.container, edges: .top)
     }
     
 }

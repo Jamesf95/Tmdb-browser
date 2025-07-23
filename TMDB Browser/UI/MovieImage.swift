@@ -19,7 +19,6 @@ struct MovieImage: View {
         self.aspectRatio = aspectRatio
     }
     
-    
     var imageUrl: URL {
         guard let path else { return placeholderImage }
         
@@ -44,13 +43,14 @@ struct MovieImage: View {
                 ZStack {
                     // Empty image to be the background so that it's the same size as the
                     // proper image above, preventing awkward resizing behavior.
-                    Image("")
+                    Image(systemName: "arrow.down.square.fill")
                         .resizable()
                         .aspectRatio(aspectRatio, contentMode: .fit)
                         .padding()
+                        .foregroundStyle(.white.opacity(0.0)) // hidden
                         .background(.gray.opacity(0.5))
                     
-                    Image(systemName: "square.and.arrow.up.fill")
+                    Image(systemName: "arrow.down.square.fill")
                 }
             }
         )
