@@ -30,9 +30,20 @@ struct MovieDetailPage: View {
                         .padding()
                     
                 }
+                
+                HStack {
+                    Spacer()
                     
-                // A spacer to push the title past the offset poster.
-                Spacer().frame(height: posterOffset)
+                    if let voteAverage = movie.voteAverage {
+                        StarRatingView(voteAverage: voteAverage)
+                    }
+                    
+                    Spacer()
+                }
+                .padding(.leading, posterWidth)
+                // Make sure the title doesn't get too close
+                // to the poster, but with some padding to offset
+                .frame(minHeight: posterOffset - 20)
                 
                 Text(movie.title)
                     .font(.title)
@@ -55,7 +66,8 @@ struct MovieDetailPage: View {
             posterPath: "/41dfWUWtg1kUZcJYe6Zk6ewxzMu.jpg",
             title: "How to train your dragon",
             overview: "Lorem ipsum",
-            backdropPath: "/etT14XfDEqhQZdD47ywpyihXPyW.jpg"
+            backdropPath: "/etT14XfDEqhQZdD47ywpyihXPyW.jpg",
+            voteAverage: 1.2
         )
     )
 }

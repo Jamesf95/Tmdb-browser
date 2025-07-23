@@ -25,6 +25,7 @@ struct DiscoverPage: View {
                 somethingWentWrongView
             }
         }
+        .ignoresSafeArea(.container, edges: .bottom)
         .onAppear { viewModel.onAppear() }
         .navigationTitle("Discover")
         .searchable(text: $viewModel.searchText)
@@ -37,6 +38,7 @@ struct DiscoverPage: View {
                     MovieGridItem(movie: movie, onTap: onMovieClicked)
                 }
             }
+            .padding(.bottom, 40)
         }
         .padding()
     }
@@ -65,5 +67,5 @@ struct DiscoverPage: View {
 }
 
 #Preview {
-    DiscoverPage() { s_ in }
+    DiscoverPage() { _ in }
 }

@@ -18,4 +18,5 @@ struct Movie: Codable, Identifiable, Hashable {
     let title: String
     let overview: String
     let backdropPath: String?
+    let voteAverage: Double?
 }

@@ -36,7 +36,8 @@ struct MovieGridItem: View {
         posterPath: "/ombsmhYUqR4qqOLOxAyr5V8hbyv",
         title: "Test",
         overview: "",
-        backdropPath: ""
+        backdropPath: "",
+        voteAverage: 1.2
     )
     MovieGridItem(movie: movie) { _ in }
 }
