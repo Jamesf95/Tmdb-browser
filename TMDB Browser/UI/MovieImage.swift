@@ -11,25 +11,24 @@ private let placeholderImage = URL(string: "https://placehold.co/500x750")!
 
 struct MovieImage: View {
     
-    let path: String
+    let path: String?
     let aspectRatio: Double
     
-    init(path: String, aspectRatio: Double = 2/3) {
+    init(path: String?, aspectRatio: Double = 2/3) {
         self.path = path
         self.aspectRatio = aspectRatio
     }
     
     
     var imageUrl: URL {
+        guard let path else { return placeholderImage }
+        
         var components = URLComponents(string: "https://image.tmdb.org")
         components?.queryItems = [
             URLQueryItem(name: "api_key", value: apiKey)
         ]
-        
-        let path = "/t/p/w500/" + path + ".jpg"
-        components?.path = path
+        components?.path = "/t/p/w500/" + path + ".jpg"
         let url = components?.url ?? placeholderImage
-        print(url)
         return url
     }
     

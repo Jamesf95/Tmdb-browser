@@ -27,6 +27,7 @@ struct DiscoverPage: View {
         }
         .onAppear { viewModel.onAppear() }
         .navigationTitle("Discover")
+        .searchable(text: $viewModel.searchText)
     }
     
     var movieGrid: some View {

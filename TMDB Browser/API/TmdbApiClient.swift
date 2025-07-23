@@ -23,8 +23,19 @@ class TmdbApiClient {
         return decoder
     }()
     
+    func search(query: String) async throws(TmdbApiClientError) -> TmdbApiResponse {
+        return try await makeGetRequest(to: "/search/movie", queryItems: ["query" : query])
+    }
+    
     func fetchDiscoverList() async throws(TmdbApiClientError) -> TmdbApiResponse {
-        guard let url = Self.buildUrl(path: "/discover/movie") else {
+        return try await makeGetRequest(to: "/discover/movie")
+    }
+    
+    private func makeGetRequest(
+        to path: String,
+        queryItems: [String : String] = [:]
+    ) async throws(TmdbApiClientError) -> TmdbApiResponse {
+        guard let url = Self.buildUrl(path: path, queryItems: queryItems) else {
             throw .invalidUrl
         }
         
@@ -32,6 +43,11 @@ class TmdbApiClient {
         
         let request = URLRequest(url: url)
         let data = try await fetchData(request: request)
+        
+        let dataString = String(data: data, encoding: .utf8)
+        print(dataString ?? "nil")
+        print("<--")
+        
         return try decodeJson(data: data)
     }
     
@@ -48,7 +64,6 @@ class TmdbApiClient {
  
     private func decodeJson(data: Data) throws(TmdbApiClientError) -> TmdbApiResponse {
         do {
-            let jsonResponse = String(data: data, encoding: .utf8)            
             return try jsonDecoder.decode(PageWrapper<Movie>.self, from: data)
             
         } catch {
@@ -57,16 +72,19 @@ class TmdbApiClient {
         }
     }
     
-    static func buildUrl(path: String) -> URL? {
+    static func buildUrl(path: String, queryItems: [String : String] = [:]) -> URL? {
         guard var components = URLComponents(string: Self.baseUrl) else {
             return nil
         }
         components.path = "/3" + path
-        components.queryItems = [
-            // api_key needed for every request.
-            URLQueryItem(name: "api_key", value: apiKey)
-        ]
         
+        var queryItems = queryItems.map { key, value in
+            URLQueryItem(name: key, value: value)
+        }
+        // api_key needed for every request.
+        queryItems.append (URLQueryItem(name: "api_key", value: apiKey))
+        
+        components.queryItems = queryItems
         return components.url
     }
     

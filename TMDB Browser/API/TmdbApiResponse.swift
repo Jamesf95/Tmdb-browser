@@ -14,8 +14,8 @@ struct PageWrapper<T: Codable>: Codable {
 
 struct Movie: Codable, Identifiable, Hashable {
     let id: Int
-    let posterPath: String
+    let posterPath: String?
     let title: String
     let overview: String
-    let backdropPath: String
+    let backdropPath: String?
 }

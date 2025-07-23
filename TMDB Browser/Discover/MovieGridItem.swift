@@ -27,17 +27,7 @@ struct MovieGridItem: View {
             onTap(movie)
         }
     }
-    
-    private var posterImageUrl: URL? {
-        var components = URLComponents(string: "https://image.tmdb.org")
-        components?.queryItems = [
-            URLQueryItem(name: "api_key", value: apiKey)
-        ]
-        
-        let path = "/t/p/w500/" + movie.posterPath + ".jpg"
-        components?.path = path
-        return components?.url
-    }
+
 }
 
 #Preview {
